@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deepblue.memorydemo.dao.CardDao">
+    <select id="getAllCard" resultType="com.deepblue.memorydemo.bean.Card">
+        SELECT * FROM easycard
+        <if test="cardnumber != null">
+            WHERE cardnumber LIKE #{cardnumber}
+        </if>
+        LIMIT #{pageCard},#{pageCardSize}
+    </select>
+
+    <select id="getCardCounts" resultType="java.lang.Integer">
+        SELECT count(*) FROM easycard
+        <if test="cardnumber != null">
+            WHERE cardnumber LIKE #{cardnumber}
+        </if>
+    </select>
+
+    <insert id="addCard">
+        INSERT INTO easycard (cardnumber,accbank,repdate)
+        VALUE (#{cardnumber},#{accbank},#{repdate})
+    </insert>
+
+    <delete id="deleteCard">
+        DELETE FROM easycard WHERE id = #{id}
+    </delete>
+</mapper>
